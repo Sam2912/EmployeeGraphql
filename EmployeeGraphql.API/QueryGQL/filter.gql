@@ -1,0 +1,21 @@
+{
+  employeesFiltered(where: { department: { in: IT } }, order: { name: DESC }) {
+    ...EmployeeDetails
+  }
+}
+
+fragment EmployeeDetails on EmployeeUnion {
+  ... on IEmployee {
+    id
+    name
+    department
+    status
+    type
+  }
+  ... on FullTimeEmployee {
+    salary
+  }
+  ... on PartTimeEmployee {
+    hourlyRate
+  }
+}

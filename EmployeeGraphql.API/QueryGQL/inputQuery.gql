@@ -1,0 +1,38 @@
+{
+  "Accept": "application/json",
+  "Authorization": "Bearer "
+}
+
+
+{
+  "create": {
+    "partTimeEmployeeInput": {
+    "id":"5b9fe307-cbef-469e-8f85-193eb596e0fa",
+    "name": "Sachin",
+    "department": "IT",
+    "hourlyRate": 7000,
+    "status": "ACTIVE",
+    "type": "FULL_TIME"
+    }
+  }
+}
+
+
+mutation AddEmployee($create: EmployeeInput!) {
+  addEmployee(create: $create) {
+    ... on IEmployee {
+      id
+      name
+      department
+      status
+    }
+    ... on FullTimeEmployeeType {
+      salary
+      type
+    }
+    ... on PartTimeEmployeeType {
+      hourlyRate
+      type
+    }
+  }
+}

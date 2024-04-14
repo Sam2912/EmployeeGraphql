@@ -1,0 +1,36 @@
+{
+  "Accept": "application/json",
+  "Authorization": "Bearer "
+}
+
+{
+  "update": {
+    "fullTimeEmployeeInput": {
+        "id": "2bcd868d-27e8-4c03-afa8-9fffd2f4b295",
+        "name": "Pahal update",
+        "department": "IT",
+        "status": "ACTIVE",
+        "salary": 3000,
+        "type": "FULL_TIME"
+    }
+  }
+}
+
+mutation UpdateEmployee($update: EmployeeUpdateInput!) {
+  updateEmployee(update: $update) {
+    ... on IEmployee {
+      id
+      name
+      department
+      status
+    }
+    ... on FullTimeEmployeeType {
+      salary
+      type
+    }
+    ... on PartTimeEmployeeType {
+      hourlyRate
+      type
+    }
+  }
+}

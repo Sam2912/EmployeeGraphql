@@ -1,0 +1,184 @@
+{
+  "Accept": "application/json",
+  "Authorization": "Bearer "
+}
+
+
+query GetEmployees {
+  employees {
+    __typename
+    ...EmployeeDetails
+  }
+}
+
+fragment EmployeeDetails on EmployeeUnion{
+  ... on IEmployee {
+    id
+    name
+    department
+    status
+    type
+  }
+  ... on FullTimeEmployee {
+    salary
+  }
+  ... on PartTimeEmployee {
+    hourlyRate
+  }
+}
+
+
+# Write your query or mutation here
+{
+  "id":"2bcd868d-27e8-4c03-afa8-9fffd2f4b295"
+}
+
+query GetEmployee($id: ID) {
+  employee(id: $id) {
+    ... on FullTimeEmployee {
+      id
+      name
+      salary
+      createdBy
+      __typename
+    }
+    ... on PartTimeEmployee {
+      id
+      name
+      hourlyRate
+      createdBy
+      __typename
+    }
+  }
+}
+
+# Write your query or mutation here
+{
+  "id":"2bcd868d-27e8-4c03-afa8-9fffd2f4b295"
+}
+
+query GetEmployee($id: ID) {
+  employee(id: $id) {
+    ... on FullTimeEmployeeType {
+      id
+      name
+      salary
+      __typename
+    }
+    ... on PartTimeEmployeeType {
+      id
+      name
+      hourlyRate
+      __typename
+    }
+  }
+}
+
+{
+  "id":"2bcd868d-27e8-4c03-afa8-9fffd2f4b295"
+}
+
+query GetEmployee($id: ID) {
+  employee(id: $id) {
+    __typename
+    ... on IEmployee {
+      id
+      name
+    }
+    ... on FullTimeEmployeeType {
+      salary
+    }
+    ... on PartTimeEmployeeType {
+      hourlyRate
+    }
+  }
+}
+
+----------
+enum
+----------
+query GetEmployees{
+  employees {
+    __typename
+    ...EmployeeDetails
+  }
+}
+
+fragment EmployeeDetails on Employee {
+  ... on IEmployee {
+    id
+    name
+    department
+  }
+  ... on FullTimeEmployeeType {
+    salary
+  }
+  ... on PartTimeEmployeeType {
+    hourlyRate
+  }
+}
+
+---------
+params
+---------
+
+{
+  "dept":"HR",
+  "status": "ACTIVE"
+}
+
+query GetFilteredEmployee($dept: Department, $status: Status) {
+  filteredEmployee(dept: $dept, status: $status) {
+    __typename
+    ...EmployeeDetails
+  }
+}
+
+fragment EmployeeDetails on EmployeeUnion {
+  ... on IEmployee {
+    id
+    name
+    department
+  }
+  ... on FullTimeEmployee {
+    salary
+  }
+  ... on PartTimeEmployee {
+    hourlyRate
+  }
+}
+
+---------
+Interface
+---------
+{
+  emp1:employeesWithInterface {
+    id
+    name
+    department
+    status
+    __typename
+    ... on FullTimeEmployeeType {
+      salary
+    }
+    ... on PartTimeEmployeeType {
+      hourlyRate
+    }
+  }
+  
+  emp2:employees{
+    ...on IEmployee{
+      id
+      name
+      status
+    }
+    ... on FullTimeEmployeeType {
+      salary
+    }
+    ... on PartTimeEmployeeType {
+      hourlyRate
+    }
+        __typename
+  }
+}
+

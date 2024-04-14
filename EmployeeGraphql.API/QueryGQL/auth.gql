@@ -1,0 +1,56 @@
+{
+  "Accept": "application/json",
+  "Authorization": "Bearer "
+}
+
+
+//CreateRole
+{
+  "name":"IT"
+}
+
+mutation CreateRole($name:String!){
+  createRole(name: $name) {
+    id
+    name
+  }
+}
+
+{
+  "input": {
+    "userName": "lax.cha",
+    "password": "Test@123",
+  "email": "lax.cha@gmail.com"
+  }
+}
+
+mutation CreateUser($input:CreateUserInput){
+  createUser(input:$input){
+    userName
+    email
+  }
+}
+
+//AssignRolesToUser
+{
+  "userId": "59623a5a-45af-46a1-8a40-4418627fa8b7",
+  "roles": ["IT"]
+}
+mutation AssignRolesToUser($userId: String!,$roles: [String]!){
+  assignRolesToUser(userId:$userId,roles:$roles)
+}
+
+//GenerateJwtToken
+
+{
+  "username": "lax.cha29",
+  "password": "Test@123"
+}
+
+query GenerateJwtToken($username: String!, $password: String!) {
+  generateJwtToken(username: $username, password: $password) {
+    token
+    success
+    errors
+  }
+}

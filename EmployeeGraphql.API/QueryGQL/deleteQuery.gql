@@ -1,0 +1,29 @@
+{
+  "Accept": "application/json",
+  "Authorization": "Bearer "
+}
+
+{
+  "delete": {
+     "employeeId":"2bcd868d-27e8-4c03-afa8-9fffd2f4b295"
+  } 
+}
+
+mutation DeleteEmployee($delete: EmployeeDeleteInput!) {
+  deleteEmployee(delete: $delete) {
+    ... on IEmployee {
+      id
+      name
+      department
+      status
+    }
+    ... on FullTimeEmployeeType {
+      salary
+      type
+    }
+    ... on PartTimeEmployeeType {
+      hourlyRate
+      type
+    }
+  }
+}
